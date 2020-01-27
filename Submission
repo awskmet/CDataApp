@@ -1,0 +1,20 @@
+public static int Answer (int[] pirates){
+	List<Integer> checker=new ArrayList<Integer>();
+	for (int i=0;i<pirates.length;i++){
+	    if (pirates[i]<i){
+	        if (checker.contains(pirates[i])){                                 //If you are going back to a spot you have already been, calculate loop
+	            int answer=((checker.size()-checker.indexOf(pirates[i]))+1);   //Loop contents will be second time at pirate- first time at that pirate
+	            return answer;
+	        }else{                                                             //Add to list of visited pirates if you have not seen that pirate before
+	            checker.add(i);
+	            i=pirates[i]-1;                                                //Change index so next iteration goes to specified pirate
+	        }
+	    }else if (pirates[i]>i){                                               //If going forward in places, will not have see pirate before unless in loop already
+	        checker.add(i);
+	        i=pirates[i]-1;
+	    }else if (pirates[i]==i){
+	        return 1;                                                          //If pirate redirects to self, which they will not
+	    }
+	}
+	return 0;                                                                 //No loop
+}
